@@ -19,7 +19,7 @@ public:
     {
         for (int i = 1; i < vectors.size(); ++i)
         {
-            SDL_RenderDrawLineF(renderer,static_cast<int>(vectors[i - 1].x + center.x),static_cast<int>(vectors[i - 1].y + center.y),static_cast<int>(vectors[i].x + center.x),static_cast<int>(vectors[i].y + center.y));
+            SDL_RenderDrawLineF(renderer,round(vectors[i - 1].x + center.x),round(vectors[i - 1].y + center.y),round(vectors[i].x + center.x),round(vectors[i].y + center.y));
         }
     }
 };

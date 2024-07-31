@@ -317,6 +317,7 @@ void fonttext(SDL_Renderer* renderer)
 }
 */
 
+/*
 void runGame(SDL_Renderer* renderer, FMOD::System* audio)
 {
     int ticks = 0; int beats = 0;
@@ -345,12 +346,15 @@ void runGame(SDL_Renderer* renderer, FMOD::System* audio)
     audio->createSound("snd/music.wav", FMOD_LOOP_NORMAL, 0, &sound);
     sounds.push_back(sound);
     audio->playSound(sounds[0],musicgroup,false,nullptr);
-    float musvolume = 0.8f;
+    float musvolume = 0.2f;
     musicgroup->setVolume(musvolume);
 
     //Sounds
+    FMOD::ChannelGroup* soundgroup = nullptr;
+    audio->createChannelGroup("Music",&soundgroup);
     audio->createSound("snd/hurt.mp3", FMOD_DEFAULT, 0, &sound);
     sounds.push_back(sound);
+    soundgroup->setVolume(musvolume);
 
     //Stars
     std::vector<Star> stars;
@@ -383,12 +387,14 @@ void runGame(SDL_Renderer* renderer, FMOD::System* audio)
         {
             musvolume = std::fmaxf(musvolume - 0.00001f,0.0);
             musicgroup->setVolume(musvolume);
+            soundgroup->setVolume(musvolume);
         }
 
         if (keystate[SDL_SCANCODE_EQUALS])
         {
             musvolume = std::fminf(musvolume + 0.00001f,1.0);
             musicgroup->setVolume(musvolume);
+            soundgroup->setVolume(musvolume);
         }
 
         //Move player to mouse
@@ -492,7 +498,7 @@ void runGame(SDL_Renderer* renderer, FMOD::System* audio)
                     float hitrange = FVector2(enemies[i].center.x-player.center.x,enemies[i].center.y-player.center.y).Magnitude();
                     if (hitrange < 10 && invuln < 1)
                     {
-                        audio->playSound(sounds[1],nullptr,false,nullptr);
+                        audio->playSound(sounds[1],soundgroup,false,nullptr);
                         lives--;
                         invuln = 60;
                     }
@@ -544,6 +550,7 @@ void runGame(SDL_Renderer* renderer, FMOD::System* audio)
         audio->update();
     }
 }
+*/
 
 int main(int argc, char* argv[])
 {
@@ -595,7 +602,7 @@ int main(int argc, char* argv[])
     void* extradriverdata = nullptr;
     audio->init(32, FMOD_INIT_NORMAL, extradriverdata);
 
-    runGame(renderer, audio);
+    //runGame(renderer, audio);
     
     return 0;
 }

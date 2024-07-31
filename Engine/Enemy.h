@@ -27,18 +27,18 @@ public:
         switch (sidespawned)
         {
         case 0:
-            center_.x = rand()%(w+1);
+            center_.x = static_cast<float>(rand()%(w+1));
             break;
         case 1:
-            center_.x = rand()%(w+1);
-            center_.y = (h+10);
+            center_.x = static_cast<float>(rand()%(w+1));
+            center_.y = static_cast<float>(h+10);
             break;
         case 2:
-            center_.y = rand()%(h+1);
+            center_.y = static_cast<float>(rand()%(h+1));
             break;
         case 3:
-            center_.y = rand()%(h+1);
-            center_.x = (w+10);
+            center_.y = static_cast<float>(rand()%(h+1));
+            center_.x = static_cast<float>(w+10);
             break;
         }
         center = center_; vectors = vectors_;

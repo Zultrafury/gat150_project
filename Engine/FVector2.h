@@ -12,12 +12,12 @@ public:
 
     FVector2 Normalized()
     {
-        float magnitude = sqrt(pow(x,2) + pow(y,2));
+        float magnitude = sqrtf(powf(x,2) + powf(y,2));
         return FVector2(x/magnitude,y/magnitude);
     }
 
     float Magnitude()
     {
-        return sqrt(pow(x,2) + pow(y,2));
+        return sqrtf(powf(x,2) + powf(y,2));
     }
 };

@@ -16,6 +16,6 @@ public:
     
     void Draw(SDL_Renderer* renderer) override
     {
-        SDL_RenderDrawPoint(renderer,pos.x,pos.y);
+        SDL_RenderDrawPointF(renderer,pos.x,pos.y);
     }
 };

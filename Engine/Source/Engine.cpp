@@ -6,13 +6,14 @@
 #include <string>
 #include <vector>
 
-#include "Enemy.h"
-#include "Font.h"
-#include "Vector2.h"
-#include "Particle.h"
-#include "Model.h"
-#include "Star.h"
-#include "Text.h"
+#include "Framework/Enemy.h"
+#include "Renderer/Font.h"
+#include "Math/Vector2.h"
+#include "Math/FVector2.h"
+#include "Framework/Particle.h"
+#include "Framework/Model.h"
+#include "Framework/Star.h"
+#include "Framework/Text.h"
 
 const int win_h = 900;
 const int win_w = 1200;

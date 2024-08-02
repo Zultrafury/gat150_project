@@ -2,7 +2,7 @@
 #include <SDL_render.h>
 #include <string>
 
-#include "Font.h"
+#include "Renderer/Font.h"
 
 class Text
 {

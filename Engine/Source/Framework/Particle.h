@@ -1,6 +1,6 @@
 ﻿#pragma once
-#include "FVector2.h"
-#include "Vector2.h"
+#include "Math/FVector2.h"
+#include "Math/Vector2.h"
 #pragma warning( push )
 #pragma warning( disable : 4244 )
 

@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 
+#include "Engine.h"
 #include "Framework/Enemy.h"
 #include "Renderer/Font.h"
 #include "Math/Vector2.h"

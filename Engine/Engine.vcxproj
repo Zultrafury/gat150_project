@@ -7,6 +7,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Core\NanoClock.h" />
+    <ClInclude Include="Source\Engine.h" />
     <ClInclude Include="Source\Framework\Enemy.h" />
     <ClInclude Include="Source\Framework\Model.h" />
     <ClInclude Include="Source\Framework\Particle.h" />
@@ -17,11 +19,10 @@
     <ClInclude Include="Source\Renderer\Font.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Engine.cpp" />
+    <ClCompile Include="Source\Game.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Source\Audio\" />
-    <Folder Include="Source\Core\" />
     <Folder Include="Source\Input\" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

@@ -31,7 +31,13 @@ public:
             std::cerr << "Error initializing SDL TTF: " << SDL_GetError() << "\n";
             return true;
         }
-    
+
+        // initialize Image SDL, supports BMP, JPG, and PNG
+        if (IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG) == 0)
+        {
+            std::cerr << "Error initializing SDL Image: " << SDL_GetError() << std::endl;
+            return true;
+        }
 
         // create window
         // returns pointer to window if successful or nullptr if failed
@@ -47,17 +53,7 @@ public:
         }
 
         // create renderer
-        /*
-        for (int i = 0; i < SDL_GetNumRenderDrivers(); ++i)
-        {
-            SDL_RendererInfo info;
-            SDL_GetRenderDriverInfo(i,&info);
-            std::cout << i << ": " << info.name << "\n";
-        }
-        */
         renderer = SDL_CreateRenderer(window, 0, 0);
-
-        //SDL_SetRelativeMouseMode(SDL_TRUE);
 
         // create audio system
         FMOD::System_Create(&audio);

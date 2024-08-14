@@ -19,6 +19,7 @@
 #include "Framework/Text.h"
 #include "Renderer/Texture.h"
 #include "Resources/ResourceManager.h"
+#include "Core/Json.h"
 
 class LegacyGames
 {
@@ -234,7 +235,7 @@ public:
         }
     }*/
 
-    /*
+    
     void spiral(SDL_Renderer* renderer)
     {
         std::vector<FVector2> linepoints;
@@ -289,7 +290,7 @@ public:
             }
         }
 
-    }*/
+    }
 
     /*
     void fonttext(SDL_Renderer* renderer)
@@ -565,6 +566,25 @@ public:
         Text* text = new Text(font);
         text->Create(renderer,"what a tiny cat!",SDL_Color{255, 255, 255, 255});
 
+        // create json document from the json file contents
+        rapidjson::Document document;
+        Json::Load("json.txt", document);
+
+        // read the data from the json
+        std::string name;
+        int age;
+        float speed;
+        bool isAwake;
+        FVector2 position;
+
+        READ_DATA(document, name);
+        READ_DATA(document, age);
+        READ_DATA(document, speed);
+        READ_DATA(document, isAwake);
+        READ_DATA(document, position);
+        // show the data
+        std::cout << name << " " << age << " " << speed << " " << isAwake << std::endl;
+        std::cout << position.x << " " << position.y << std::endl;
 
         auto startnano = std::chrono::high_resolution_clock::now();
 

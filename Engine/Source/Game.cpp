@@ -23,10 +23,12 @@ LegacyGames lg = LegacyGames();
 
 int main(int argc, char* argv[])
 {
+    //lg.spiral(engine.renderer);
     lg.example(engine.renderer, engine.audio);
 
-    SDL_Quit();
+    engine.audio->close();
     TTF_Quit();
     IMG_Quit();
+    SDL_Quit();
     return 0;
 }

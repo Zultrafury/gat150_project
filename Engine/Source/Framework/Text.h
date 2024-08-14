@@ -7,10 +7,6 @@
 class Text
 {
 public:
-    Text(Font* font)
-    {
-        m_font = font;
-    }
     ~Text()
     {
         if (m_texture != nullptr)
@@ -18,7 +14,10 @@ public:
             SDL_DestroyTexture(m_texture);
         }
     }
+    Text(res_t<Font> font) : m_font{ font } {};
 
+    void SetFont(res_t<Font> font) { m_font = font; }
+    
     bool Create(SDL_Renderer* renderer, const std::string& text, const SDL_Color& color)
     {
         // create a surface using the font, text string and color
@@ -58,6 +57,6 @@ public:
     }
 
 private:
-    Font* m_font{ nullptr };
+    res_t<Font> m_font{ nullptr };
     SDL_Texture* m_texture{ nullptr };
 };

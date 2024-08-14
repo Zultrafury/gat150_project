@@ -4,23 +4,30 @@
 #include <string>
 #include <SDL_ttf.h>
 #include "Math/Vector2.h"
+#include "Resources/Resource.h"
 
-class Texture
+class Texture : public Resource
 {
 public:
     struct SDL_Texture* m_texture{ nullptr };
     
     Texture() = default;
-    Texture(const std::string& filename, SDL_Renderer* renderer)
-    {
-        Load(filename,renderer);
-    }
     ~Texture()
     {
         if (m_texture != nullptr)
         {
             SDL_DestroyTexture(m_texture);
         }
+    }
+
+    bool Create(std::string name, ...) override
+    {
+        va_list args;
+        va_start(args, name);
+        SDL_Renderer* renderer = va_arg(args, SDL_Renderer*);
+        va_end(args);
+ 
+        return Load(name, renderer);
     }
 
     bool Load(const std::string& filename, SDL_Renderer* renderer)

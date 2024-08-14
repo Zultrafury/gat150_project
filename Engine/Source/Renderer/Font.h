@@ -3,7 +3,9 @@
 #include <string>
 #include <SDL_ttf.h>
 
-class Font
+#include "Resources/Resource.h"
+
+class Font : public Resource
 {
 public:
     ~Font()
@@ -14,6 +16,16 @@ public:
         }
     }
 
+    bool Create(std::string name, ...) override
+    {
+        va_list args;
+        va_start(args,name);
+        int fontSize = va_arg(args, int);
+        va_end(args);
+ 
+        return Load(name, fontSize);
+    }
+    
     bool Load(const std::string& name, int fontSize)
     {
         m_ttfFont = TTF_OpenFont(name.c_str(), fontSize);

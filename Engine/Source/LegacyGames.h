@@ -18,6 +18,7 @@
 #include "Framework/Star.h"
 #include "Framework/Text.h"
 #include "Renderer/Texture.h"
+#include "Resources/ResourceManager.h"
 
 class LegacyGames
 {
@@ -115,7 +116,8 @@ public:
     
     } 
     */
-
+    
+    /*
     void drumMachine(SDL_Renderer* renderer, FMOD::System* audio)
     {
         FMOD::Sound* sound = nullptr;
@@ -230,8 +232,9 @@ public:
         
             audio->update();
         }
-    }
+    }*/
 
+    /*
     void spiral(SDL_Renderer* renderer)
     {
         std::vector<FVector2> linepoints;
@@ -286,8 +289,9 @@ public:
             }
         }
 
-    }
+    }*/
 
+    /*
     void fonttext(SDL_Renderer* renderer)
     {
         // load font
@@ -319,7 +323,8 @@ public:
             }
         }
     }
-
+    */
+    
     void dodgeGame(SDL_Renderer* renderer, FMOD::System* audio)
     {
         int ticks = 0; int beats = 0;
@@ -366,8 +371,7 @@ public:
 
         //Score + lives
         int score = 0;
-        Font* font = new Font();
-        font->Load("Jupiteroid-Regular.ttf", 40);
+        res_t<Font> font = ResourceManager::Instance().Get<Font>("Jupiteroid-Regular.ttf",40);
         Text* scoretext = new Text(font);
         Text* livestext = new Text(font);
         Uint8 playerpulse = 0;
@@ -555,8 +559,13 @@ public:
 
     void example(SDL_Renderer* renderer, FMOD::System* audio)
     {
-        Texture tex = Texture("img/angy.jpg",renderer);
         
+        res_t<Texture> tex = ResourceManager::Instance().Get<Texture>("img/angy.jpg",renderer);
+        res_t<Font> font = ResourceManager::Instance().Get<Font>("Jupiteroid-Regular.ttf",30);
+        Text* text = new Text(font);
+        text->Create(renderer,"what a tiny cat!",SDL_Color{255, 255, 255, 255});
+
+
         auto startnano = std::chrono::high_resolution_clock::now();
 
         while (true)
@@ -565,7 +574,7 @@ public:
             // clear screen
             SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
             SDL_RenderClear(renderer);
-
+            
             //render at my computer's refresh rate, 60hz
             auto nextnano = std::chrono::high_resolution_clock::now();
             auto nanointerval = std::chrono::duration_cast<std::chrono::nanoseconds>(nextnano - startnano).count();
@@ -574,14 +583,18 @@ public:
                 startnano = nextnano;
 
                 SDL_FRect destRect;
-                destRect.x = (win_w/2)-(tex.GetSize().x/2);
-                destRect.y = win_h/2-(tex.GetSize().y/2);;
-                destRect.w = tex.GetSize().x;
-                destRect.h = tex.GetSize().y;
-                SDL_RenderCopyExF(renderer,tex.m_texture,NULL,&destRect,0,NULL,SDL_FLIP_NONE);
+                destRect.x = (win_w/2)-(tex->GetSize().x/2);
+                destRect.y = win_h/2-(tex->GetSize().y/2);
+                destRect.w = tex->GetSize().x;
+                destRect.h = tex->GetSize().y;
+                SDL_RenderCopyExF(renderer,tex->m_texture,NULL,&destRect,0,NULL,SDL_FLIP_NONE);
+
+                text->Draw(renderer,500,150);
                 
                 SDL_RenderPresent(renderer);
             }
+
+            audio->update();
         }
     }
 };

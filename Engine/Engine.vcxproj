@@ -14,6 +14,7 @@
     <ClInclude Include="Source\Framework\Enemy.h" />
     <ClInclude Include="Source\Framework\Model.h" />
     <ClInclude Include="Source\Framework\Particle.h" />
+    <ClInclude Include="Source\Framework\Scene.h" />
     <ClInclude Include="Source\Framework\Star.h" />
     <ClInclude Include="Source\Framework\Text.h" />
     <ClInclude Include="Source\Math\FVector2.h" />
@@ -28,8 +29,9 @@
     <ClCompile Include="Source\LegacyGames.h" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Source\Audio\" />
-    <Folder Include="Source\Input\" />
+    <Content Include="Source\Audio\Sound.h" />
+    <Content Include="Source\Input\FRead.h" />
+    <Content Include="Source\scene.json" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

@@ -234,7 +234,6 @@ public:
             audio->update();
         }
     }*/
-
     
     void spiral(SDL_Renderer* renderer)
     {

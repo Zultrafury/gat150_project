@@ -7,23 +7,16 @@
 #include <rapidjson/istreamwrapper.h>
 #include <Math/Vector2.h>
 
+#include "Input/FRead.h"
+
 #define READ_DATA(value, data) Json::Read(value, #data, data)
 
 namespace Json
 {
     inline bool Load(const std::string& filename, rapidjson::Document& document)
     {
-        // read the file into a string
-        std::string buffer,readbuff;
-        std::ifstream File(filename);
-        while (std::getline(File, readbuff))
-        {
-            buffer += readbuff;
-        }
-        File.close();
-
         // convert the string into a json stream
-        std::stringstream stream(buffer);
+        std::stringstream stream(FRead::ReadFile(filename));
         rapidjson::IStreamWrapper istream(stream);
 
         // set the json document from the stream

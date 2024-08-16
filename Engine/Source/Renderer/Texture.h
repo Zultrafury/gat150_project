@@ -9,7 +9,7 @@
 class Texture : public Resource
 {
 public:
-    struct SDL_Texture* m_texture{ nullptr };
+    SDL_Texture* m_texture{ nullptr };
     
     Texture() = default;
     ~Texture()
@@ -30,7 +30,7 @@ public:
         return Load(name, renderer);
     }
 
-    bool Load(const std::string& filename, SDL_Renderer* renderer)
+    bool Load(std::string filename, SDL_Renderer* renderer)
     {
         // load image onto surface
         SDL_Surface* surface = IMG_Load(filename.c_str());

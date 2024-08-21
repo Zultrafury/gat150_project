@@ -23,8 +23,15 @@ LegacyGames lg = LegacyGames();
 
 int main(int argc, char* argv[])
 {
+    engine.addClock(30);
+    engine.init();
+    int myint = 1;
+    while(true)
+    {
+        if (engine.clockchecks[0] == true) { std::cout << "check " << myint << "!\n"; myint ++; }
+    }
     //lg.spiral(engine.renderer);
-    lg.example(engine.renderer, engine.audio);
+    //lg.example(engine.renderer, engine.audio);
 
     engine.audio->close();
     TTF_Quit();

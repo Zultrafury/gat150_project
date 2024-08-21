@@ -1,13 +1,16 @@
 ﻿#pragma once
 #include <chrono>
+#include <thread>
 
 class NanoClock
 {
 public:
     long interval;
-    auto startnano = std::chrono::high_resolution_clock::now();
-    auto nextnano = std::chrono::high_resolution_clock::now();
+    std::chrono::time_point<std::chrono::steady_clock> startnano = std::chrono::high_resolution_clock::now();
+    std::chrono::time_point<std::chrono::steady_clock> nextnano = std::chrono::high_resolution_clock::now();
     long nanointerval = std::chrono::duration_cast<std::chrono::nanoseconds>(nextnano-startnano).count();
+    bool running = false;
+    std::thread* thread;
 
     NanoClock(int fps_)
     {
@@ -32,5 +35,32 @@ public:
             return true;
         }
         return false;
+    }
+
+    void SmartCheck(bool& checker) //check threads are weird, making a function to help verify check loops
+    {
+        if (Check())
+        {
+            checker = true;
+        }
+    }
+
+    void StartCount(bool& monitor)
+    {
+        running = true;
+        auto f = [this, &monitor]()
+        {
+            while(running)
+            {
+                monitor = Check();
+            }
+        };
+        thread = new std::thread(f);
+    }
+
+    void StopCount()
+    {
+        running = false;
+        exit(0);
     }
 };

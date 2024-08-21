@@ -4,17 +4,20 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 
+#include "Core/NanoClock.h"
+
 class Engine
 {
 public:
     int win_w = 1200; int win_h = 900;
     
     SDL_Renderer* renderer = nullptr; FMOD::System* audio = nullptr;
+
+    std::vector<NanoClock> nanoclocks;
+
+    bool clockchecks[16];
     
-    Engine()
-    {
-        init();
-    }
+    Engine() = default;
 
     bool init()
     {
@@ -61,6 +64,27 @@ public:
         void* extradriverdata = nullptr;
         audio->init(32, FMOD_INIT_NORMAL, extradriverdata);
 
+        for (int i = 0; i < nanoclocks.size(); ++i)
+        {
+            clockchecks[i] = false;
+            nanoclocks[i].StartCount(clockchecks[i]);
+        }
+        
         return false;
+    }
+
+    template<typename T>
+    int addClock(T t)
+    {
+        try
+        {
+            NanoClock clock = NanoClock(t);
+            nanoclocks.push_back(clock);
+        }
+        catch(std::logic_error e)
+        {
+            std::cerr << e.what() << '\n';
+            return 1;
+        }
     }
 };

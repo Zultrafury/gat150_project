@@ -5,6 +5,7 @@
 #include <SDL_ttf.h>
 
 #include "Core/NanoClock.h"
+#include "Physics/Physics.h"
 
 class Engine
 {
@@ -16,6 +17,10 @@ public:
     std::vector<NanoClock> nanoclocks;
 
     bool clockchecks[16];
+
+    std::unique_ptr<Physics> m_physics;
+
+    Physics& GetPhysics() { return *m_physics; }
     
     Engine() = default;
 

@@ -7,14 +7,18 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Components\Component.h" />
+    <ClInclude Include="Source\Components\TextComponent.h" />
     <ClInclude Include="Source\Core\Json.h" />
     <ClInclude Include="Source\Core\NanoClock.h" />
     <ClInclude Include="Source\Core\Singleton.h" />
     <ClInclude Include="Source\Engine.h" />
+    <ClInclude Include="Source\Framework\Actor.h" />
     <ClInclude Include="Source\Framework\Enemy.h" />
     <ClInclude Include="Source\Framework\Model.h" />
     <ClInclude Include="Source\Framework\Particle.h" />
     <ClInclude Include="Source\Framework\Scene.h" />
+    <ClInclude Include="Source\Framework\Sprite.h" />
     <ClInclude Include="Source\Framework\Star.h" />
     <ClInclude Include="Source\Framework\Text.h" />
     <ClInclude Include="Source\Math\FVector2.h" />

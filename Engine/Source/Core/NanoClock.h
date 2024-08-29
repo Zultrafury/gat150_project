@@ -10,8 +10,9 @@ public:
     std::chrono::time_point<std::chrono::steady_clock> nextnano = std::chrono::high_resolution_clock::now();
     long nanointerval = std::chrono::duration_cast<std::chrono::nanoseconds>(nextnano-startnano).count();
     bool running = false;
-    std::thread* thread;
+    //std::thread* counterthread;
 
+    
     NanoClock(int fps_)
     {
         interval = 1000000000/fps_;
@@ -37,30 +38,49 @@ public:
         return false;
     }
 
-    void SmartCheck(bool& checker) //check threads are weird, making a function to help verify check loops
+    void Check(bool& checker)
     {
-        if (Check())
+        nextnano = std::chrono::high_resolution_clock::now();
+        nanointerval = std::chrono::duration_cast<std::chrono::nanoseconds>(nextnano-startnano).count();
+        if (nanointerval > interval)
         {
+            startnano = nextnano;
             checker = true;
+        }
+        else
+        {
+            checker = false;
         }
     }
 
-    void StartCount(bool& monitor)
-    {
-        running = true;
-        auto f = [this, &monitor]()
-        {
-            while(running)
-            {
-                monitor = Check();
-            }
-        };
-        thread = new std::thread(f);
-    }
-
-    void StopCount()
-    {
-        running = false;
-        exit(0);
-    }
+    // i tried threads :p
+    
+    // void Count(bool& monitor)
+    // {
+    //     while(running)
+    //     {
+    //         //monitor = Check();
+    //         Check(monitor);
+    //     }
+    // }
+    //
+    // void StartCount(bool& monitor)
+    // {
+    //     running = true;
+    //     // auto f = [this, &monitor]()
+    //     // {
+    //     //     while(running)
+    //     //     {
+    //     //         //monitor = Check();
+    //     //         Check(monitor);
+    //     //     }
+    //     // };
+    //     // counterthread = new std::thread(f);
+    // }
+    //
+    // void StopCount()
+    // {
+    //     running = false;
+    //     exit(0);
+    // }
 };

@@ -17,19 +17,26 @@
 #include "Framework/Star.h"
 #include "Framework/Text.h"
 #include "LegacyGames.h"
+#include "Components/TextComponent.h"
 
 Engine engine;
 LegacyGames lg = LegacyGames();
 
 int main(int argc, char* argv[])
 {
-    engine.addClock(30);
+    
+    engine.addClock(60);
     engine.init();
     int myint = 1;
     while(true)
     {
+        engine.Update();
+        engine.Draw();
+        
         if (engine.clockchecks[0] == true) { std::cout << "check " << myint << "!\n"; myint ++; }
     }
+    
+    
     //lg.spiral(engine.renderer);
     //lg.example(engine.renderer, engine.audio);
 

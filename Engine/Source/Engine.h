@@ -68,12 +68,6 @@ public:
 
         void* extradriverdata = nullptr;
         audio->init(32, FMOD_INIT_NORMAL, extradriverdata);
-
-        for (int i = 0; i < nanoclocks.size(); ++i)
-        {
-            clockchecks[i] = false;
-            nanoclocks[i].StartCount(clockchecks[i]);
-        }
         
         return false;
     }
@@ -81,6 +75,10 @@ public:
     template<typename T>
     int addClock(T t)
     {
+        if (nanoclocks.size() >= 16)
+        {
+            return 1;
+        }
         try
         {
             NanoClock clock = NanoClock(t);
@@ -91,5 +89,19 @@ public:
             std::cerr << e.what() << '\n';
             return 1;
         }
+    }
+
+    void Update()
+    {
+        //Clock checks
+        for (int i = 0; i < nanoclocks.size(); ++i)
+        {
+            nanoclocks[i].Check(clockchecks[i]);
+        }
+    }
+    
+    void Draw()
+    {
+        
     }
 };

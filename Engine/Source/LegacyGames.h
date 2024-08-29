@@ -20,6 +20,7 @@
 #include "Renderer/Texture.h"
 #include "Resources/ResourceManager.h"
 #include "Core/Json.h"
+#include "Framework/Sprite.h"
 
 class LegacyGames
 {
@@ -560,7 +561,10 @@ public:
     void example(SDL_Renderer* renderer, FMOD::System* audio)
     {
         
-        res_t<Texture> tex = ResourceManager::Instance().Get<Texture>("img/angy.jpg",renderer);
+        res_t<Texture> tex = ResourceManager::Instance().Get<Texture>("img/coin.png",renderer);
+        Sprite spr = Sprite(tex,8,2);
+        float upwards = -1;
+
         res_t<Font> font = ResourceManager::Instance().Get<Font>("Jupiteroid-Regular.ttf",30);
         Text* text = new Text(font);
         text->Create(renderer,"what a tiny cat!",SDL_Color{255, 255, 255, 255});
@@ -600,13 +604,17 @@ public:
             if (nanointerval > (1000000000 / 60))
             {
                 startnano = nextnano;
-
+                upwards++;
+                spr.Draw(renderer, win_w/2, win_h/2 + upwards/50);
+                
+                /*
                 SDL_FRect destRect;
                 destRect.x = (win_w/2)-(tex->GetSize().x/2);
                 destRect.y = win_h/2-(tex->GetSize().y/2);
                 destRect.w = tex->GetSize().x;
                 destRect.h = tex->GetSize().y;
                 SDL_RenderCopyExF(renderer,tex->m_texture,NULL,&destRect,0,NULL,SDL_FLIP_NONE);
+                */
 
                 text->Draw(renderer,500,150);
                 

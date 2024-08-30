@@ -9,7 +9,7 @@
         {
           "type": "TextComponent",
           "font" : "Jupiteroid-Regular.ttf",
-          "fontsize" : 400,
+          "fontsize" : 40,
           "text" : "3",
           "color" : [255,0,0,255]
         }

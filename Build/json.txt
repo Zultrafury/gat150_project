@@ -7,10 +7,16 @@
   "color": [1, 0, 0, 1],
   "components" : [
         {
+          "type": "SpriteComponent",
+          "texture" : "img/coin.png",
+          "frames" : 8,
+          "fps" : 10
+        },
+        {
           "type": "TextComponent",
           "font" : "Jupiteroid-Regular.ttf",
-          "fontsize" : 40,
-          "text" : "3",
+          "fontsize" : 30,
+          "text" : "RED!",
           "color" : [255,0,0,255]
         }
       ]

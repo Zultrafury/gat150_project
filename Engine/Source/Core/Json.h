@@ -206,4 +206,23 @@ namespace Json
 
         return true;
     }
+
+    inline bool Read(const rapidjson::Value& value, const std::string& name, Actor& data)
+    {
+        // check if the value has the "<name>" and is an array with 2 elements
+        if (!value.HasMember(name.c_str()) || !value[name.c_str()].IsObject())
+        {
+            std::cerr << "Could not read Json value: " << name << std::endl;
+            return false;
+        }
+
+        // get json array object
+        auto& actor = value[name.c_str()];
+        // get array values
+        Actor _act = Actor(ResourceManager::Instance().RenderGet());
+        
+        _act.Move()
+
+        return true;
+    }
 }

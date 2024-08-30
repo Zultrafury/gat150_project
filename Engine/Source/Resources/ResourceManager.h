@@ -9,6 +9,7 @@ class ResourceManager : public Singleton<ResourceManager>
 {
 public:
     void RenderBind(SDL_Renderer* _r);
+    SDL_Renderer* RenderGet();
     
     template<typename T, typename ... TArgs>
     res_t<T> Get(const std::string& name, TArgs ... args);
@@ -28,6 +29,10 @@ private:
 inline void ResourceManager::RenderBind(SDL_Renderer* _r)
 {
     rm_renderer = _r;
+}
+inline SDL_Renderer* ResourceManager::RenderGet()
+{
+    return rm_renderer;
 }
 
 template<typename T, typename ... TArgs>

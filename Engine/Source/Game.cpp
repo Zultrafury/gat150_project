@@ -26,10 +26,10 @@ LegacyGames lg = LegacyGames();
 
 int main(int argc, char* argv[])
 {
-    engine.addClock(60);
+    //engine.addClock(60);
     engine.init();
     
-    while(true)
+    while(false)
     {
         engine.Update();
         if (engine.clockchecks[0])
@@ -40,7 +40,7 @@ int main(int argc, char* argv[])
     }
     
     //lg.spiral(engine.renderer);
-    //lg.example(engine.renderer, engine.audio);
+    lg.example(engine.renderer, engine.audio);
 
     engine.audio->close();
     TTF_Quit();

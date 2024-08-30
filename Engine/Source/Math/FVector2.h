@@ -25,9 +25,10 @@ public:
     {
         return sqrtf(powf(x,2) + powf(y,2));
     }
-
+    /*
     Vector2 asi()
     {
         return {static_cast<int>(round(x)),static_cast<int>(round(y))};
     }
+    */
 };

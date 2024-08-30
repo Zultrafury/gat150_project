@@ -4,9 +4,15 @@
 class Component
 {
 public:
+    virtual ~Component() = default;
     Component() = default;
-    ~Component() = default;
 
-    virtual void Draw(SDL_Renderer* renderer, int x, int y);
-    virtual void Update();
+    virtual void Draw(SDL_Renderer* renderer, int x, int y, double rotation, double scale)
+    {
+        
+    }
+    virtual void Update()
+    {
+        
+    }
 };

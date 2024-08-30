@@ -15,6 +15,7 @@ public:
     {
         
     }
+    Sprite() = default;
     Sprite(res_t<Texture> tex, int frames, int _fps)
     {
         m_texture = tex;
@@ -33,17 +34,20 @@ public:
 
     void SetTexture(res_t<Texture> texture) { m_texture = texture; }
     
-    void Draw(SDL_Renderer* renderer, int x, int y)
+    void Draw(SDL_Renderer* renderer, int x, int y, double rotation, double scale)
     {
         //Timing
-        frametimer++;
-        if (frametimer >= fps)
+        if (fps > 0)
         {
-            frametimer = 0;
-            currentframe++;
-            if (currentframe > m_slices.size()-1)
+            frametimer++;
+            if (frametimer >= fps)
             {
-                currentframe = 0;
+                frametimer = 0;
+                currentframe++;
+                if (currentframe > m_slices.size()-1)
+                {
+                    currentframe = 0;
+                }
             }
         }
         
@@ -55,13 +59,13 @@ public:
             srect.w, srect.h
         };
         SDL_FRect rect {
-            static_cast<float>(x) - static_cast<float>(srect.w)/2,
-            static_cast<float>(y) - static_cast<float>(srect.h)/2,
-            static_cast<float>(srect.w), static_cast<float>(srect.h)
+            static_cast<float>(x) - static_cast<float>(srect.w * scale)/2,
+            static_cast<float>(y) - static_cast<float>(srect.h * scale)/2,
+            static_cast<float>(srect.w * scale), static_cast<float>(srect.h * scale)
         };
         
         // copy the texture onto the renderer
-        SDL_RenderCopyExF(renderer,m_texture->m_texture,&srcrect,&rect,0,NULL,SDL_FLIP_NONE);
+        SDL_RenderCopyExF(renderer,m_texture->m_texture,&srcrect,&rect,rotation,NULL,SDL_FLIP_NONE);
     }
 
 private:

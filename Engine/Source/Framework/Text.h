@@ -78,13 +78,20 @@ public:
     
     void Draw(SDL_Renderer* renderer, int x, int y)
     {
+        Draw(renderer,x, y,0,1);
+    }
+
+    void Draw(SDL_Renderer* renderer, int x, int y, double rotation, double scale)
+    {
         // query the texture for the texture width and height
-        int width, height;
-        SDL_QueryTexture(m_texture, nullptr, nullptr, &width, &height);
+        int _width, _height;
+        SDL_QueryTexture(m_texture, nullptr, nullptr, &_width, &_height);
+        float width = static_cast<float>(_width) * static_cast<float>(scale);
+        float height = static_cast<float>(_height) * static_cast<float>(scale);
 
         // copy the texture onto the renderer
-        SDL_Rect rect{ x, y, width, height };
-        SDL_RenderCopy(renderer, m_texture, NULL, &rect);
+        SDL_FRect rect{ static_cast<float>(x) - width/2, static_cast<float>(y) - height/2, width, height };
+        SDL_RenderCopyExF(renderer, m_texture, NULL, &rect, rotation, NULL, SDL_FLIP_NONE);
     }
 
 private:

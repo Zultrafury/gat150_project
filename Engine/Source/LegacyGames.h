@@ -565,7 +565,7 @@ public:
         Sprite spr = Sprite(tex,8,2);
         float upwards = -1;
 
-        res_t<Font> font = ResourceManager::Instance().Get<Font>("Jupiteroid-Regular.ttf",30);
+        res_t<Font> font = ResourceManager::Instance().Get<Font>("Jupiteroid-Regular.ttf",50);
         Text* text = new Text(font);
         text->Create(renderer,"what a tiny cat!",SDL_Color{255, 255, 255, 255});
 
@@ -579,12 +579,14 @@ public:
         float speed;
         bool isAwake;
         FVector2 position;
+        std::vector<Component*> components;
 
         READ_DATA(document, name);
         READ_DATA(document, age);
         READ_DATA(document, speed);
         READ_DATA(document, isAwake);
         READ_DATA(document, position);
+        READ_DATA(document,components);
         // show the data
         std::cout << name << " " << age << " " << speed << " " << isAwake << std::endl;
         std::cout << position.x << " " << position.y << std::endl;
@@ -605,7 +607,9 @@ public:
             {
                 startnano = nextnano;
                 upwards++;
-                spr.Draw(renderer, win_w/2, win_h/2 + upwards/50);
+                spr.Draw(renderer, win_w/2, win_h/4 + upwards/50,0,1);
+                components[0]->Draw(renderer, win_w/2, win_h/2 - upwards/50,0,2);
+                //components[1]->Draw(renderer, win_w/5, win_h/2 - upwards/50,90,2);
                 
                 /*
                 SDL_FRect destRect;

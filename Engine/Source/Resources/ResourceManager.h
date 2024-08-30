@@ -8,6 +8,8 @@
 class ResourceManager : public Singleton<ResourceManager>
 {
 public:
+    void RenderBind(SDL_Renderer* _r);
+    
     template<typename T, typename ... TArgs>
     res_t<T> Get(const std::string& name, TArgs ... args);
  
@@ -17,9 +19,15 @@ protected:
     ResourceManager() = default;
  
 private:
+    SDL_Renderer* rm_renderer;
     std::map<std::string, res_t<Resource>> m_resources;
 };
- 
+
+inline void ResourceManager::RenderBind(SDL_Renderer* _r)
+{
+    rm_renderer = _r;
+}
+
 template<typename T, typename ... TArgs>
 inline res_t<T> ResourceManager::Get(const std::string& name, TArgs ... args)
 {
@@ -32,7 +40,7 @@ inline res_t<T> ResourceManager::Get(const std::string& name, TArgs ... args)
  
     // resource not found, create resource
     res_t<T> resource = std::make_shared<T>();
-    if (!resource->Create(name, args...))
+    if (!resource->Create(name, rm_renderer, args...))
     {
         // resource not created
         std::cerr << "Could not create resource: " << name << std::endl;

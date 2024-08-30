@@ -8,6 +8,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Components\Component.h" />
+    <ClInclude Include="Source\Components\SpriteComponent.h" />
     <ClInclude Include="Source\Components\TextComponent.h" />
     <ClInclude Include="Source\Core\Json.h" />
     <ClInclude Include="Source\Core\NanoClock.h" />
@@ -36,7 +37,6 @@
   <ItemGroup>
     <Content Include="Source\Audio\Sound.h" />
     <Content Include="Source\Input\FRead.h" />
-    <Content Include="Source\scene.json" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

@@ -1,0 +1,47 @@
+{
+  "actors" : [
+    
+    {
+      "name" : "Coin",
+      "position" : {
+        "x" : 400,
+        "y" : 400,
+        "rotation" : 0,
+        "scale" : 1
+      },
+      "components" : [
+        {
+          "type": "SpriteComponent",
+          "texture" : "img/coin.png",
+          "frames" : 8,
+          "fps" : 4
+        }
+      ]
+    },
+
+    {
+      "name" : "Coin",
+      "position" : {
+        "x" : 600,
+        "y" : 400,
+        "rotation" : 45,
+        "scale" : 1
+      },
+      "components" : [
+        {
+          "type": "SpriteComponent",
+          "texture" : "img/coin.png",
+          "frames" : 8,
+          "fps" : 10
+        },
+        {
+          "type": "TextComponent",
+          "font" : "Jupiteroid-Regular.ttf",
+          "fontsize" : 30,
+          "text" : "Coin!",
+          "color" : [255,0,0,255]
+        }
+      ]
+    }
+  ]
+}

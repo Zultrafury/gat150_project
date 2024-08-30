@@ -4,5 +4,14 @@
   "speed": 18.5,
   "isAwake": true,
   "position": [10, 20],
-  "color": [1, 0, 0, 1]
+  "color": [1, 0, 0, 1],
+  "components" : [
+        {
+          "type": "TextComponent",
+          "font" : "Jupiteroid-Regular.ttf",
+          "fontsize" : 400,
+          "text" : "3",
+          "color" : [255,0,0,255]
+        }
+      ]
 }

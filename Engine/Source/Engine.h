@@ -4,6 +4,7 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 
+#include "Core/Json.h"
 #include "Core/NanoClock.h"
 #include "Physics/Physics.h"
 
@@ -68,6 +69,13 @@ public:
 
         void* extradriverdata = nullptr;
         audio->init(32, FMOD_INIT_NORMAL, extradriverdata);
+
+        //Bind to resource manager
+        ResourceManager::Instance().RenderBind(renderer);
+
+        //Load scene.json
+        // rapidjson::Document document;
+        // Json::Load("scene.json", document);
         
         return false;
     }
@@ -93,15 +101,22 @@ public:
 
     void Update()
     {
+        SDL_PumpEvents();
         //Clock checks
         for (int i = 0; i < nanoclocks.size(); ++i)
         {
             nanoclocks[i].Check(clockchecks[i]);
         }
     }
+
+    void EndUpdate()
+    {
+        audio->update();
+    }
     
     void Draw()
     {
-        
+        //SDL_RenderClear(renderer);
+        SDL_RenderPresent(renderer);
     }
 };

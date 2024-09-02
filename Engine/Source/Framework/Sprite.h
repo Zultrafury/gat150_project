@@ -10,16 +10,18 @@ public:
     int currentframe = 0;
     int frametimer = -1;
     int fps = 1;
+    bool loop = true;
     
     ~Sprite()
     {
         
     }
     Sprite() = default;
-    Sprite(res_t<Texture> tex, int frames, int _fps)
+    Sprite(res_t<Texture> tex, int frames, int _fps, bool _loop)
     {
         m_texture = tex;
         fps = _fps;
+        loop = _loop;
 
         int width, height;
         SDL_QueryTexture(m_texture->m_texture, nullptr, nullptr, &width, &height);
@@ -46,7 +48,13 @@ public:
                 currentframe++;
                 if (currentframe > m_slices.size()-1)
                 {
-                    currentframe = 0;
+                    if (loop)
+                    {
+                        currentframe = 0;
+                    }
+                    else {
+                        currentframe =  m_slices.size()-1;
+                    }
                 }
             }
         }

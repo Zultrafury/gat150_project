@@ -235,7 +235,8 @@ public:
             audio->update();
         }
     }*/
-    
+
+    /*
     void spiral(SDL_Renderer* renderer)
     {
         std::vector<FVector2> linepoints;
@@ -291,7 +292,8 @@ public:
         }
 
     }
-
+    */
+    
     /*
     void fonttext(SDL_Renderer* renderer)
     {
@@ -326,6 +328,7 @@ public:
     }
     */
     
+    /*
     void dodgeGame(SDL_Renderer* renderer, FMOD::System* audio)
     {
         int ticks = 0; int beats = 0;
@@ -557,7 +560,9 @@ public:
             audio->update();
         }
     }
+    */
     
+    /*
     void example(SDL_Renderer* renderer, FMOD::System* audio)
     {
         
@@ -611,14 +616,12 @@ public:
                 components[0]->Draw(renderer, win_w/2, win_h/2 - upwards/50,0,2);
                 components[1]->Draw(renderer, win_w/5, win_h/2 - upwards/50,90,2);
                 
-                /*
                 SDL_FRect destRect;
                 destRect.x = (win_w/2)-(tex->GetSize().x/2);
                 destRect.y = win_h/2-((3*tex->GetSize().y)/4);
                 destRect.w = tex->GetSize().x;
                 destRect.h = tex->GetSize().y;
                 SDL_RenderCopyExF(renderer,tex->m_texture,NULL,&destRect,0,NULL,SDL_FLIP_NONE);
-                */
 
                 //text->Draw(renderer,500,150);
                 
@@ -628,4 +631,5 @@ public:
             audio->update();
         }
     }
+    */
 };

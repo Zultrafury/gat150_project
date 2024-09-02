@@ -7,7 +7,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Components\AudioComponent.h" />
+    <ClInclude Include="Source\Components\BeatActorGenerator.h" />
+    <ClInclude Include="Source\Components\BeatComponent.h" />
+    <ClInclude Include="Source\Components\ChaserEnemyComponent.h" />
     <ClInclude Include="Source\Components\Component.h" />
+    <ClInclude Include="Source\Components\MouseStickComponent.h" />
+    <ClInclude Include="Source\Components\PhysicsComponent.h" />
     <ClInclude Include="Source\Components\SpriteComponent.h" />
     <ClInclude Include="Source\Components\TextComponent.h" />
     <ClInclude Include="Source\Core\Json.h" />
@@ -22,6 +28,7 @@
     <ClInclude Include="Source\Framework\Sprite.h" />
     <ClInclude Include="Source\Framework\Star.h" />
     <ClInclude Include="Source\Framework\Text.h" />
+    <ClInclude Include="Source\Input\KeyInput.h" />
     <ClInclude Include="Source\Math\FVector2.h" />
     <ClInclude Include="Source\Math\Vector2.h" />
     <ClInclude Include="Source\Physics\Physics.h" />
@@ -36,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Source\Audio\Sound.h" />
+    <Content Include="Source\Components\BeatSpriteComponent.h" />
     <Content Include="Source\Input\FRead.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

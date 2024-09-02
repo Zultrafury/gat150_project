@@ -5,14 +5,14 @@
 class NanoClock
 {
 public:
-    long interval;
+    long interval = 1000;
     std::chrono::time_point<std::chrono::steady_clock> startnano = std::chrono::high_resolution_clock::now();
     std::chrono::time_point<std::chrono::steady_clock> nextnano = std::chrono::high_resolution_clock::now();
     long nanointerval = std::chrono::duration_cast<std::chrono::nanoseconds>(nextnano-startnano).count();
     bool running = false;
     //std::thread* counterthread;
 
-    
+    NanoClock() = default;
     NanoClock(int fps_)
     {
         interval = 1000000000/fps_;

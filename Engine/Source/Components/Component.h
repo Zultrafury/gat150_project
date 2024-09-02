@@ -1,5 +1,5 @@
 ﻿#pragma once
-
+#include <SDL.h>
 
 class Component
 {
@@ -11,8 +11,19 @@ public:
     {
         
     }
-    virtual void Update()
+    
+    virtual void Update(SDL_Renderer* renderer, int* x, int* y, double& rotation, double& scale)
     {
         
+    }
+
+    virtual Component* Clone()
+    {
+        return new Component(*this);
+    }
+
+    virtual bool Destroy()
+    {
+        return false;
     }
 };

@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include <array>
 #include <fmod.hpp>
 #include <iostream>
 #include <SDL.h>
@@ -6,27 +7,40 @@
 
 #include "Core/Json.h"
 #include "Core/NanoClock.h"
+#include "Input/KeyInput.h"
 #include "Physics/Physics.h"
 
 class Engine
 {
 public:
-    int win_w = 1200; int win_h = 900;
+    int win_w = 1200; int win_h = 900; std::string windowtitle = "Shibble";
     
-    SDL_Renderer* renderer = nullptr; FMOD::System* audio = nullptr;
+    SDL_Renderer* renderer = nullptr;
+
+    FMOD::System* audio = nullptr; FMOD::ChannelGroup* audiogroup; float* volume = new float(0.2f);
 
     std::vector<NanoClock> nanoclocks;
 
-    bool clockchecks[16];
+    std::array<bool,16> clockchecks;
+
+    bool* running; bool playercollision = false;
+
+    std::vector<Actor> actors;
+
+    std::vector<Actor> prefabs;
 
     std::unique_ptr<Physics> m_physics;
 
     Physics& GetPhysics() { return *m_physics; }
+
+    KeyInput keys = KeyInput();
     
     Engine() = default;
 
-    bool init()
+    bool init(bool* _run)
     {
+        running = _run;
+        
         // initialize SDL
         if (SDL_Init(SDL_INIT_VIDEO) < 0)
         {
@@ -50,7 +64,7 @@ public:
 
         // create window
         // returns pointer to window if successful or nullptr if failed
-        SDL_Window* window = SDL_CreateWindow("Game Engine",
+        SDL_Window* window = SDL_CreateWindow(windowtitle.c_str(),
             SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
             win_w, win_h,
             SDL_WINDOW_SHOWN);
@@ -69,54 +83,154 @@ public:
 
         void* extradriverdata = nullptr;
         audio->init(32, FMOD_INIT_NORMAL, extradriverdata);
-
+        audiogroup = nullptr;
+        audio->createChannelGroup("Music",&audiogroup);
+        audiogroup->setVolume(*volume);
+        
+        //Initialize physics
+        m_physics->Initialize();
+        
         //Bind to resource manager
         ResourceManager::Instance().RenderBind(renderer);
+        ResourceManager::Instance().ASBind(audio, audiogroup);
 
         //Load scene.json
-        // rapidjson::Document document;
-        // Json::Load("scene.json", document);
+        rapidjson::Document document;
+        Json::Load("scene.json", document);
+        READ_DATA(document,actors);
+        READ_DATA(document,prefabs);
         
         return false;
     }
 
-    template<typename T>
-    int addClock(T t)
+    int addClock(int t)
     {
         if (nanoclocks.size() >= 16)
         {
             return 1;
         }
-        try
+        NanoClock clock = NanoClock(t);
+        nanoclocks.push_back(clock);
+        return 0;
+    }
+
+    int addClock(float t)
+    {
+        if (nanoclocks.size() >= 16)
         {
-            NanoClock clock = NanoClock(t);
-            nanoclocks.push_back(clock);
-        }
-        catch(std::logic_error e)
-        {
-            std::cerr << e.what() << '\n';
             return 1;
         }
+        NanoClock clock = NanoClock(t);
+        nanoclocks.push_back(clock);
+        return 0;
     }
 
     void Update()
     {
         SDL_PumpEvents();
+
+        //Load actors
+        for (auto& actor : actors)
+        {
+            actor.renderer = renderer;
+        }
+        
         //Clock checks
         for (int i = 0; i < nanoclocks.size(); ++i)
         {
             nanoclocks[i].Check(clockchecks[i]);
+        }
+        
+        for (auto& actor : actors)
+        {
+            if (actor.active)
+            {
+                actor.Update();
+            }
+            for (auto& element : actor.components)
+            {
+                if (dynamic_cast<BeatComponent*>(element) && clockchecks[1])
+                {
+                    dynamic_cast<BeatComponent*>(element)->OnBeat();
+                }
+                if (dynamic_cast<ChaserEnemyComponent*>(element))
+                {
+                    if (dynamic_cast<ChaserEnemyComponent*>(element)->collision)
+                    {
+                        playercollision = true;
+                    }
+                }
+            }
+        }
+    }
+
+    Actor Prefab(std::string name)
+    {
+        for (auto& element : prefabs)
+        {
+            if (element.name == name)
+            {
+                return element;
+            }
+        }
+    }
+
+    Actor GetActor(std::string name)
+    {
+        for (auto& element : actors)
+        {
+            if (element.name == name)
+            {
+                return element;
+            }
         }
     }
 
     void EndUpdate()
     {
         audio->update();
+        for (auto& element : actors)
+        {
+            for (auto& c : element.components)
+            {
+                if (c->Destroy())
+                {
+                    element.~Actor();
+                    break;
+                }
+            }
+        }
+        if (keys.GetKey("esc"))
+        {
+            *running = false;
+        }
+        if (keys.GetKeyDown("-"))
+        {
+            volume = new float(std::fmaxf(*volume-0.05f,0));
+            audiogroup->setVolume(*volume);
+        }
+        if (keys.GetKeyDown("="))
+        {
+            volume = new float(std::fminf(*volume+0.05f,1));
+            audiogroup->setVolume(*volume);
+        }
     }
     
     void Draw()
     {
-        //SDL_RenderClear(renderer);
+        SDL_RenderClear(renderer);
+        for (auto element : actors)
+        {
+            if (element.active)
+            {
+                element.Draw();
+            }
+        }
         SDL_RenderPresent(renderer);
+    }
+
+    void Exit()
+    {
+        *running = false;
     }
 };

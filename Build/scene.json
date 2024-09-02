@@ -1,8 +1,136 @@
 {
-  "actors" : [
+  "prefabs" : [
     
     {
-      "name" : "Coin",
+      "name": "Enemy",
+      "active" : true,
+      "position": {
+        "x": 400,
+        "y": 400,
+        "rotation": 0,
+        "scale": 1.5
+      },
+      "components": [
+        {
+          "type": "BeatSpriteComponent",
+          "texture": "img/squarenemy.png",
+          "frames": 15,
+          "fps": 2,
+          "loop": false,
+          "beats": 1
+        },
+        {
+          "type": "ChaserEnemyComponent"
+        }
+      ]
+    },
+
+    {
+      "name" : "HitSound",
+      "active" : true,
+      "position" : {
+        "x" : 0,
+        "y" : 0,
+        "rotation" : 0,
+        "scale" : 1
+      },
+      "components" : [
+        {
+          "type" : "AudioComponent",
+          "sound" : "snd/hurt.wav",
+          "loop" : false,
+          "duration" : 15
+        }
+      ]
+    }
+    
+  ],
+  
+  "actors" : [
+
+    {
+      "name" : "Music",
+      "active" : true,
+      "position" : {
+        "x" : 0,
+        "y" : 0,
+        "rotation" : 0,
+        "scale" : 1
+      },
+      "components" : [
+        {
+          "type" : "AudioComponent",
+          "sound" : "snd/dashstar.mp3",
+          "loop" : true,
+          "duration" : 0
+        }
+      ]
+    },
+    
+    {
+      "name" : "Background",
+      "active" : true,
+      "position" : {
+        "x" : 600,
+        "y" : 450,
+        "rotation" : 0,
+        "scale" : 10
+      },
+      "components" : [
+        {
+          "type" : "BeatSpriteComponent",
+          "texture" : "img/bgflash.png",
+          "frames" : 5,
+          "fps" : 3,
+          "loop" : false,
+          "beats" : 2
+        }
+      ]
+    },
+
+    {
+      "name" : "ScoreText",
+      "active" : true,
+      "position" : {
+        "x" : 200,
+        "y" : 100,
+        "rotation" : 0,
+        "scale" : 1
+      },
+      "components" : [
+        {
+          "type" : "TextComponent",
+          "fontsize" : 35,
+          "font" : "Jupiteroid-Regular.ttf",
+          "text" : "Score: ",
+          "color" : [255,255,255,255]
+        }
+      ]
+    },
+
+    {
+      "name" : "LivesText",
+      "active" : true,
+      "position" : {
+        "x" : 1000,
+        "y" : 100,
+        "rotation" : 0,
+        "scale" : 1
+      },
+      "components" : [
+        {
+          "type" : "TextComponent",
+          "fontsize" : 35,
+          "font" : "Jupiteroid-Regular.ttf",
+          "text" : "Lives: 3",
+          "color" : [255,255,255,255]
+        }
+      ]
+    },
+
+    {
+      "name" : "Player",
+      "active" : true,
       "position" : {
         "x" : 400,
         "y" : 400,
@@ -11,37 +139,20 @@
       },
       "components" : [
         {
-          "type": "SpriteComponent",
-          "texture" : "img/coin.png",
-          "frames" : 8,
-          "fps" : 4
-        }
-      ]
-    },
-
-    {
-      "name" : "Coin",
-      "position" : {
-        "x" : 600,
-        "y" : 400,
-        "rotation" : 45,
-        "scale" : 1
-      },
-      "components" : [
-        {
-          "type": "SpriteComponent",
-          "texture" : "img/coin.png",
-          "frames" : 8,
-          "fps" : 10
+          "type" : "BeatSpriteComponent",
+          "texture" : "img/playerpulseshort.png",
+          "frames" : 17,
+          "fps" : 2,
+          "loop" : false,
+          "beats" : 1
         },
         {
-          "type": "TextComponent",
-          "font" : "Jupiteroid-Regular.ttf",
-          "fontsize" : 30,
-          "text" : "Coin!",
-          "color" : [255,0,0,255]
+          "type" : "MouseStickComponent",
+          "offx" : 0,
+          "offy" : 0
         }
       ]
     }
+    
   ]
 }

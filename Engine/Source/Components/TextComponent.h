@@ -23,8 +23,13 @@ public:
         localtext.Create(renderer);
         localtext.Draw(renderer,x,y,rotation,scale);
     }
-    void Update() override
+    void Update(SDL_Renderer* renderer, int* x, int* y, double& rotation, double& scale) override
     {
         
+    }
+
+    Component* Clone() override
+    {
+        return new TextComponent(*this);
     }
 };
